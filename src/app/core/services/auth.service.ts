@@ -8,12 +8,16 @@ import {
   User,
 } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   user$: Observable<User | null>;
 
-  constructor(private auth: Auth) {
+  constructor(
+    private auth: Auth,
+    private router: Router,
+  ) {
     this.user$ = authState(this.auth);
   }
 
@@ -25,7 +29,8 @@ export class AuthService {
     return createUserWithEmailAndPassword(this.auth, email, password);
   }
 
-  logout() {
-    return signOut(this.auth);
+  async logout() {
+    await signOut(this.auth);
+    await this.router.navigate(['/']);
   }
 }
