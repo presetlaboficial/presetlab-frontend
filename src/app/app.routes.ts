@@ -6,6 +6,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { AccountComponent } from './pages/account/account.component';
 import { authGuard } from './core/guards/auth.guard';
+import { guestGuard } from './core/guards/guest.guard';
 
 export const routes: Routes = [
   {
@@ -20,10 +21,12 @@ export const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+    canActivate: [guestGuard],
   },
   {
     path: 'register',
     component: RegisterComponent,
+    canActivate: [guestGuard],
   },
   {
     path: 'account',
