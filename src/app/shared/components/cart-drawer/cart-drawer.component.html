@@ -1,38 +1,50 @@
 <div class="overlay" *ngIf="isOpen$ | async" (click)="close()"></div>
 
 <aside class="drawer" [class.open]="isOpen$ | async">
-  <header>
-    <h3>Carrinho</h3>
+  <header class="drawer-header">
+    <h3>Seu Carrinho</h3>
     <button (click)="close()">✕</button>
   </header>
 
-  <div class="items" *ngIf="items.length; else empty">
-    <div class="item" *ngFor="let item of items">
-      <img [src]="item.image" alt="" />
+  <div class="items">
+    <ng-container *ngIf="items$ | async as items">
+      <div *ngFor="let item of items" class="item">
+        <img [src]="item.image || 'assets/placeholder.png'" [alt]="item.name" />
 
-      <div class="info">
-        <p>{{ item.name }}</p>
-        <span>R$ {{ item.price }},00</span>
+        <div class="info">
+          <div>{{ item.name }}</div>
+          <small>{{ item.quantity }}x R$ {{ item.price }}</small>
+        </div>
+
+        <button class="remove" (click)="remove(item.productId)">🗑️</button>
       </div>
 
-      <button class="remove" (click)="remove(item.productId)">
-        ✕
-      </button>
-    </div>
+      <div *ngIf="items.length === 0" class="empty">
+        <p>Seu carrinho está vazio.</p>
+      </div>
+    </ng-container>
   </div>
 
-  <ng-template #empty>
-    <p class="empty">Seu carrinho está vazio</p>
-  </ng-template>
+  <footer class="drawer-footer" *ngIf="cartTotal$ | async as total">
+    <ng-container *ngIf="total > 0">
+      <div class="total">
+        <span>Total</span>
+        <strong>R$ {{ total | number: "1.2-2" }}</strong>
+      </div>
 
-  <footer *ngIf="items.length">
-    <div class="total">
-      <span>Total</span>
-      <strong>R$ {{ total }},00</strong>
-    </div>
+      <button
+        class="checkout"
+        *ngIf="auth.user$ | async; else loginRequired"
+        (click)="checkout()"
+      >
+        Finalizar compra
+      </button>
 
-    <button class="checkout">
-      Finalizar compra
-    </button>
+      <ng-template #loginRequired>
+        <button class="checkout disabled" (click)="goToLogin()">
+          Faça login para continuar
+        </button>
+      </ng-template>
+    </ng-container>
   </footer>
 </aside>

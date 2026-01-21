@@ -1,9 +1,14 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+// Imports
 import { CartService } from '../../../core/services/cart.service';
 import { CartDrawerService } from '../../../core/services/cart-drawer.service';
+import { AuthService } from '../../../core/services/auth.service';
 import { CartItem } from '../../../core/models/cart-item.model';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-cart-drawer',
@@ -13,32 +18,43 @@ import { Observable } from 'rxjs';
   styleUrls: ['./cart-drawer.component.scss'],
 })
 export class CartDrawerComponent {
-  items: CartItem[] = [];
-  isOpen$!: Observable<boolean>; 
+  isOpen$: Observable<boolean>;
+  items$: Observable<CartItem[]>;
+  cartTotal$: Observable<number>;
 
   constructor(
     private cartService: CartService,
     private drawer: CartDrawerService,
+    public auth: AuthService,
+    private router: Router,
   ) {
     this.isOpen$ = this.drawer.isOpen$;
+    this.items$ = this.cartService.cart$;
 
-    this.cartService.cart$.subscribe((items) => {
-      this.items = items;
-    });
+    // Calcula total
+    this.cartTotal$ = this.items$.pipe(
+      map((items) =>
+        items.reduce((sum, item) => sum + item.price * item.quantity, 0),
+      ),
+    );
   }
 
   close() {
     this.drawer.close();
   }
 
-  remove(productId: number) {
-    this.cartService.removeFromCart(productId);
+  // Recebe o ID do produto para remover
+  remove(id: number) {
+    this.cartService.removeFromCart(id);
   }
 
-  get total() {
-    return this.items.reduce(
-      (sum, item) => sum + item.price * item.quantity,
-      0,
-    );
+  goToLogin() {
+    this.drawer.close();
+    this.router.navigate(['/login']);
+  }
+
+  checkout() {
+    this.drawer.close();
+    // Lógica de checkout aqui
   }
 }
