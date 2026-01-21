@@ -1,0 +1,54 @@
+<header>
+  <!-- DESKTOP HEADER LINE -->
+  <div class="header-desktop">
+    <div class="logo-desktop">
+      <a routerLink="/">
+        <img src="assets/imgs/logoPresetLab.jpg" alt="Logo PresetLab" />
+      </a>
+    </div>
+
+    <div class="cart-desktop">
+      <div class="cart-icon" (click)="openCart()">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="badge" *ngIf="cartCount > 0">{{ cartCount }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MOBILE TOP BAR -->
+  <div class="top-bar">
+    <div class="logo">
+      <a routerLink="/">
+        <img src="assets/imgs/logoPresetLab.jpg" alt="Logo PresetLab" />
+      </a>
+    </div>
+
+    <div class="right-actions">
+      <div class="cart-icon" (click)="openCart()">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="badge" *ngIf="cartCount > 0">{{ cartCount }}</span>
+      </div>  
+
+      <button class="mobile-menu-button" (click)="toggleMenu()">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- MENU -->
+  <nav>
+    <ul class="desktop-menu">
+      <li><a routerLink="/">Início</a></li>
+      <li><a>Presets</a></li>
+      <li><a>Tutoriais</a></li>
+      <li><a>Plugins</a></li>
+    </ul>
+
+    <ul class="mobile-menu" [class.show]="menuOpen">
+      <li><a routerLink="/" (click)="closeMenu()">Início</a></li>
+      <li><a>Presets</a></li>
+      <li><a>Tutoriais</a></li>
+      <li><a>Plugins</a></li>
+    </ul>
+  </nav>
+</header>

@@ -1,0 +1,74 @@
+.dmca-page {
+  min-height: 100vh;
+  padding: 60px 20px;
+  background: linear-gradient(
+    to bottom,
+    #0c0f14,
+    #11141b
+  );
+  color: #eaeaea;
+}
+
+.dmca-container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: #17191e;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+
+  h1 {
+    font-size: 3rem;
+    margin-bottom: 16px;
+  }
+
+  h2 {
+    margin-top: 32px;
+    margin-bottom: 12px;
+    font-size: 1.5rem;
+    color: #d4af37;
+  }
+
+  p {
+    font-size: 1.5rem;
+    line-height: 1.7;
+    margin-bottom: 14px;
+    opacity: 0.9;
+  }
+
+  ul {
+    margin: 16px 0 24px;
+    padding-left: 20px;
+
+    li {
+      margin-bottom: 8px;
+      font-size: 1.5rem;
+    }
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin: 24px 0;
+  }
+}
+
+.dmca-highlight {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.dmca-email {
+  font-size: 15px;
+  margin-bottom: 20px;
+
+  strong {
+    color: #d4af37;
+  }
+}
+
+.warning {
+  color: #ffb84d;
+  font-weight: 500;
+}

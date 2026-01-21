@@ -1,0 +1,36 @@
+<section class="product-page">
+  <div class="product-container">
+    <div class="product-main">
+      <div class="product-image">
+        <img [src]="product.image" alt="{{ product.name }}" />
+      </div>
+
+      <div class="product-info">
+        <h1>{{ product.name }}</h1>
+
+        <p class="price">R$ {{ product.price }},00</p>
+
+        <p class="description">
+          {{ product.description }}
+        </p>
+
+        <button class="add-to-cart" (click)="addToCart()">
+          Adicionar ao carrinho
+        </button>
+
+        <p class="disclaimer">
+          Produto digital. Download liberado após a confirmação do pagamento.
+        </p>
+      </div>
+    </div>
+
+    <div class="related">
+      <h2>Produtos relacionados</h2>
+
+      <div class="related-grid">
+        <app-product-card *ngFor="let item of relatedProducts" [product]="item">
+        </app-product-card>
+      </div>
+    </div>
+  </div>
+</section>

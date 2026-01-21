@@ -1,0 +1,38 @@
+<div class="overlay" *ngIf="isOpen$ | async" (click)="close()"></div>
+
+<aside class="drawer" [class.open]="isOpen$ | async">
+  <header>
+    <h3>Carrinho</h3>
+    <button (click)="close()">✕</button>
+  </header>
+
+  <div class="items" *ngIf="items.length; else empty">
+    <div class="item" *ngFor="let item of items">
+      <img [src]="item.image" alt="" />
+
+      <div class="info">
+        <p>{{ item.name }}</p>
+        <span>R$ {{ item.price }},00</span>
+      </div>
+
+      <button class="remove" (click)="remove(item.productId)">
+        ✕
+      </button>
+    </div>
+  </div>
+
+  <ng-template #empty>
+    <p class="empty">Seu carrinho está vazio</p>
+  </ng-template>
+
+  <footer *ngIf="items.length">
+    <div class="total">
+      <span>Total</span>
+      <strong>R$ {{ total }},00</strong>
+    </div>
+
+    <button class="checkout">
+      Finalizar compra
+    </button>
+  </footer>
+</aside>

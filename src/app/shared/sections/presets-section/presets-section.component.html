@@ -1,0 +1,10 @@
+<section class="presets-section">
+  <h2>PRESETS</h2>
+
+  <div class="grid">
+    <app-product-card
+      *ngFor="let preset of presets"
+      [product]="preset">
+    </app-product-card>
+  </div>
+</section>

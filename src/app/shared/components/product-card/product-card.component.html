@@ -1,0 +1,17 @@
+<a class="card-link" [routerLink]="['/product', product.id]">
+  <div class="card">
+    <div class="image">
+      <img [src]="product.image" alt="{{ product.name }}" />
+    </div>
+
+    <p class="title">{{ product.name }}</p>
+
+    <div class="bottom">
+      <button class="add-btn" (click)="add($event)">+</button>
+
+      <span class="price" *ngIf="product.price">
+        R$ {{ product.price }},00
+      </span>
+    </div>
+  </div>
+</a>
