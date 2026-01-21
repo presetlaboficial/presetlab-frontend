@@ -1,6 +1,26 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import { appConfig } from './app/app.config';
 import { AppComponent } from './app/app.component';
 
-bootstrapApplication(AppComponent, appConfig)
-  .catch((err) => console.error(err));
+import { provideRouter } from '@angular/router';
+import { routes } from './app/app.routes';
+
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { provideAuth, getAuth } from '@angular/fire/auth';
+
+const firebaseConfig = {
+  apiKey: 'AIzaSyBy1LDMm_iT041ZBHwoZbQGo4_UWTNU9v8',
+  authDomain: 'preset-lab.firebaseapp.com',
+  projectId: 'preset-lab',
+  storageBucket: 'preset-lab.firebasestorage.app',
+  messagingSenderId: '731559612495',
+  appId: '1:731559612495:web:57505cd181fe03ee63da3a',
+  measurementId: 'G-2F2WNLQDRK',
+};
+
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideRouter(routes), 
+    provideFirebaseApp(() => initializeApp(firebaseConfig)),
+    provideAuth(() => getAuth()),
+  ],
+});

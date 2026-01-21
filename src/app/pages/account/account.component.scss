@@ -1,0 +1,42 @@
+.account-page {
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #17191e;
+  color: #fff;
+}
+
+.account-card {
+  background: #1f2229;
+  padding: 2rem;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+}
+
+.account-card h1 {
+  margin-bottom: 1.5rem;
+}
+
+.email {
+  font-size: 0.9rem;
+  color: #ccc;
+  word-break: break-word;
+}
+
+.actions {
+  margin-top: 2rem;
+}
+
+.logout {
+  width: 100%;
+  padding: 0.8rem;
+  background: #c0392b;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}

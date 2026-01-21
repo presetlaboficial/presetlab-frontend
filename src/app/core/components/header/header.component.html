@@ -7,10 +7,22 @@
       </a>
     </div>
 
-    <div class="cart-desktop">
+    <div class="actions-desktop">
       <div class="cart-icon" (click)="openCart()">
         <i class="fas fa-shopping-cart"></i>
         <span class="badge" *ngIf="cartCount > 0">{{ cartCount }}</span>
+      </div>
+
+      <div class="auth-actions">
+        <ng-container *ngIf="auth.user$ | async; else loggedOut">
+          <a class="account" routerLink="/account">Minha conta</a>
+          <button class="logout" (click)="auth.logout()">Sair</button>
+        </ng-container>
+
+        <ng-template #loggedOut>
+          <a class="login" routerLink="/login">Entrar</a>
+          <a class="register" routerLink="/register">Registrar</a>
+        </ng-template>
       </div>
     </div>
   </div>
@@ -27,7 +39,7 @@
       <div class="cart-icon" (click)="openCart()">
         <i class="fas fa-shopping-cart"></i>
         <span class="badge" *ngIf="cartCount > 0">{{ cartCount }}</span>
-      </div>  
+      </div>
 
       <button class="mobile-menu-button" (click)="toggleMenu()">
         <i class="fas fa-bars"></i>
@@ -49,6 +61,19 @@
       <li><a>Presets</a></li>
       <li><a>Tutoriais</a></li>
       <li><a>Plugins</a></li>
+      <li class="mobile-auth">
+        <ng-container *ngIf="auth.user$ | async; else loggedOutMobile">
+          <a routerLink="/account" (click)="closeMenu()">Minha conta</a>
+          <button (click)="auth.logout()">Sair</button>
+        </ng-container>
+
+        <ng-template #loggedOutMobile>
+          <a class="login" routerLink="/login" (click)="closeMenu()">Entrar</a>
+          <a class="register" routerLink="/register" (click)="closeMenu()"
+            >Registrar</a
+          >
+        </ng-template>
+      </li>
     </ul>
   </nav>
 </header>

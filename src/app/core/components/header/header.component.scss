@@ -20,9 +20,12 @@ header {
   max-width: 200px;
 }
 
-.cart-desktop {
+.actions-desktop {
   position: absolute;
   right: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
 }
 
 .cart-icon {
@@ -39,8 +42,67 @@ header {
   color: #fff;
   border-radius: 50%;
   padding: 2px 6px;
-  font-size: 1rem;
+  font-size: 0.75rem;
   font-weight: bold;
+}
+
+/* ============================= */
+/* AUTH ACTIONS
+/* ============================= */
+
+.auth-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.auth-actions .login {
+  background: #ffffff;
+  color: #000;
+  text-align: center;
+  padding: 0.35rem 2rem;
+  border-radius: 6px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.auth-actions .login:hover {
+  opacity: 0.85;
+}
+
+.auth-actions .register {
+  background: #c9a14a;
+  color: #000;
+  text-align: center;
+  padding: 0.35rem 1.5rem;
+  border-radius: 6px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.auth-actions .register:hover {
+  opacity: 0.85;
+}
+
+.auth-actions .account {
+  color: #fff;
+  font-size: 0.9rem;
+  text-decoration: none;
+  text-align: center;
+}
+
+.auth-actions .logout {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #fff;
+  padding: 0.3rem 0.7rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  cursor: pointer;
 }
 
 /* ============================= */
@@ -126,13 +188,63 @@ nav {
   display: block;
   padding: 1rem;
   text-align: center;
-  color: #fff;
   text-decoration: none;
 }
 
 .mobile-menu.show {
   display: flex;
 }
+
+/* ============================= */
+/* AUTH MOBILE                   */
+/* ============================= */
+
+.mobile-auth {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 1rem;
+}
+
+.mobile-auth a,
+.mobile-auth button {
+  width: 100%;
+  padding: 0.7rem;
+  border-radius: 6px;
+  text-align: center;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+}
+
+/* Entrar */
+.mobile-auth .login {
+  background: #fff;
+  color: #000;
+  text-decoration: none;
+}
+
+/* Registrar */
+.mobile-auth .register {
+  background: #c9a14a;
+  color: #fff;
+  text-decoration: none;
+}
+
+/* Minha conta */
+.mobile-auth a:not(.login):not(.register) {
+  background: transparent;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+/* Sair */
+.mobile-auth button {
+  background: transparent;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
 
 /* ============================= */
 /* RESPONSIVO                    */

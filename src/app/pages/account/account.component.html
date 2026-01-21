@@ -1,0 +1,13 @@
+<section class="account-page">
+  <div class="account-card">
+    <h1>Minha Conta</h1>
+
+    <p class="email">
+      {{ auth.user$ | async | json }}
+    </p>
+
+    <div class="actions">
+      <button class="logout" (click)="auth.logout()">Sair da conta</button>
+    </div>
+  </div>
+</section>

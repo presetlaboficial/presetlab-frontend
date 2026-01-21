@@ -3,6 +3,7 @@ import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { CartService } from '../../services/cart.service';
 import { CartDrawerService } from '../../services/cart-drawer.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -17,7 +18,8 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private cartService: CartService,
-    private cartDrawer: CartDrawerService
+    private cartDrawer: CartDrawerService,
+    public auth: AuthService,
   ) {}
 
   ngOnInit() {
@@ -34,7 +36,7 @@ export class HeaderComponent implements OnInit {
     this.menuOpen = false;
   }
 
-  openCart(){
+  openCart() {
     this.cartDrawer.toggle();
   }
 }

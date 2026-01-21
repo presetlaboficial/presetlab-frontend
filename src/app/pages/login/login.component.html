@@ -1,0 +1,17 @@
+<section class="auth-page">
+  <form (ngSubmit)="submit()">
+    <h1>Entrar</h1>
+
+    <input type="email" placeholder="Email" [(ngModel)]="email" name="email" required />
+    <input type="password" placeholder="Senha" [(ngModel)]="password" name="password" required />
+
+    <p class="error" *ngIf="error">{{ error }}</p>
+
+    <button type="submit">Entrar</button>
+
+    <p class="link">
+      Não tem conta?
+      <a routerLink="/register">Criar conta</a>
+    </p>
+  </form>
+</section>
