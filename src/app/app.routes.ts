@@ -5,19 +5,17 @@ import { ProductComponent } from './pages/product/product.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { AccountComponent } from './pages/account/account.component';
+import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
-    title: 'PresetLab',
     pathMatch: 'full',
   },
   {
     path: 'dmca',
     component: DmcaComponent,
-    title: 'DMCA - PresetLab',
-    pathMatch: 'full',
   },
   {
     path: 'login',
@@ -30,6 +28,7 @@ export const routes: Routes = [
   {
     path: 'account',
     component: AccountComponent,
+    canActivate: [authGuard],
   },
   {
     path: 'product/:id',
