@@ -1,0 +1,107 @@
+// Variáveis (Mantendo consistência com o tema)
+$primary-color: #4f46e5;
+$text-main: #1f2937;
+$text-secondary: #6b7280;
+$border-color: #e5e7eb;
+$bg-card: #ffffff;
+
+.order-details {
+  background-color: $bg-card;
+  max-width: 450px;
+  margin: 2rem auto;
+  padding: 2rem;
+  border-radius: 16px; // Bordas levemente mais arredondadas
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1),
+              0 8px 10px -6px rgba(0, 0, 0, 0.1); // Sombra elegante
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  color: $text-main;
+
+  // Título do Pedido
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+    color: $primary-color;
+
+    // Dica: Usar fonte monospace para IDs/Códigos ajuda na leitura
+    font-family: 'Courier New', Courier, monospace;
+    letter-spacing: -0.5px;
+  }
+
+  // Data
+  p {
+    color: $text-secondary;
+    font-size: 0.875rem;
+    margin-bottom: 1.5rem;
+  }
+
+  // Linhas divisórias (Estilo Cupom Fiscal)
+  hr {
+    border: none;
+    border-top: 2px dashed $border-color;
+    margin: 1.5rem 0;
+  }
+
+  // Lista de Itens
+  .items {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem; // Espaçamento entre os itens
+
+    .item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.95rem;
+
+      strong {
+        font-weight: 600;
+        color: $text-main;
+      }
+
+      span {
+        color: $text-secondary;
+        font-feature-settings: "tnum"; // Alinha os números melhor
+      }
+    }
+  }
+
+  // Total
+  h2 {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.25rem;
+    font-weight: 800;
+    margin-top: 0.5rem;
+    margin-bottom: 2rem;
+
+    // Adiciona o label "Total" antes do valor usando CSS
+    &::before {
+      content: "Total Pago";
+      font-weight: 500;
+      font-size: 1rem;
+      color: $text-secondary;
+    }
+  }
+
+  // Botão de Voltar (Estilo Secundário/Outline)
+  button {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    background-color: transparent;
+    border: 2px solid $border-color;
+    color: $text-main;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+    text-decoration: none; // Caso o routerLink gere uma tag <a>
+
+    &:hover {
+      background-color: $border-color;
+      border-color: darken($border-color, 10%);
+    }
+  }
+}

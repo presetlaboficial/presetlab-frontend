@@ -7,6 +7,8 @@ import {
   query,
   where,
   orderBy,
+  docData,
+  doc,
 } from '@angular/fire/firestore';
 import { Order } from '../models/order.model';
 import { Observable } from 'rxjs';
@@ -34,5 +36,10 @@ export class OrderService {
     );
 
     return collectionData(q, { idField: 'id' }) as Observable<Order[]>;
+  }
+
+  getOrderById(orderId: string): Observable<Order> {
+    const orderDoc = doc(this.firestore, `orders/${orderId}`);
+    return docData(orderDoc, { idField: 'id' }) as Observable<Order>;
   }
 }

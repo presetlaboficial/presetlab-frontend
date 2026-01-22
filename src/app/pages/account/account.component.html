@@ -14,7 +14,11 @@
       </div>
 
       <div class="orders">
-        <div class="order" *ngFor="let order of orders">
+        <div
+          class="order"
+          *ngFor="let order of orders"
+          [routerLink]="['/account/orders', order.id]"
+        >
           <div>
             <strong>Pedido</strong>
             #{{ order.id?.slice(0, 8) }}

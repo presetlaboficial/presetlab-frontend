@@ -51,4 +51,11 @@ export const routes: Routes = [
     path: 'success',
     component: SuccessComponent,
   },
+  {
+    path: 'account/orders/:id',
+    loadComponent: () =>
+      import('./pages/account/order-details/order-details.component').then(
+        (m) => m.OrderDetailsComponent,
+      ),
+  },
 ];
