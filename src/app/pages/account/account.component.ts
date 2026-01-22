@@ -1,14 +1,26 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../core/services/auth.service';
+import { OrderService } from '../../core/services/order.service';
+import { Order } from '../../core/models/order.model';
+import { map, Observable } from 'rxjs';
 
 @Component({
-  standalone: true,
   selector: 'app-account',
+  standalone: true,
   imports: [CommonModule],
   templateUrl: './account.component.html',
-  styleUrls: ['./account.component.scss'],
+  styleUrl: './account.component.scss'
 })
 export class AccountComponent {
-  constructor(public auth: AuthService) {}
+  orders$!: Observable<Order[]>;
+
+  constructor(
+    public auth: AuthService,
+    private orderService: OrderService,
+  ) {
+    this.orders$ = this.auth.user$.pipe(
+      map((user) => (user ? this.orderService.getOrdersByUser(user.uid) : [])),
+    );
+  }
 }
