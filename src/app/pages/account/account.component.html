@@ -28,6 +28,10 @@
 
           <div>R$ {{ order.total | number: "1.2-2" }}</div>
 
+          <div class="status" [class]="order.status">
+            {{ order.status }}
+          </div>
+
           <small>
             {{ order.createdAt?.toDate() | date: "dd/MM/yyyy HH:mm" }}
           </small>

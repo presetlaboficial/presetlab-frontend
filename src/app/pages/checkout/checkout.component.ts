@@ -37,19 +37,25 @@ export class CheckoutComponent {
   }
 
   confirmOrder() {
-    combineLatest([this.user$, this.cart$, this.total$])
-      .pipe(take(1))
-      .subscribe(([user, items, total]) => {
-        if (!user) return;
+    this.auth.user$.pipe(take(1)).subscribe((user) => {
+      if (!user) return;
+
+      this.cart$.pipe(take(1)).subscribe((items) => {
+        const total = items.reduce(
+          (sum, item) => sum + item.price * item.quantity,
+          0,
+        );
 
         this.orderService.createOrder({
           userId: user.uid,
           items,
           total,
+          status: 'pending',
         });
 
         this.cartService.clearCart();
         this.router.navigate(['/success']);
       });
+    });
   }
 }

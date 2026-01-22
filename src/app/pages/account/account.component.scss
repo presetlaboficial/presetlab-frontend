@@ -47,3 +47,32 @@
   color: #fff;
   cursor: pointer;
 }
+
+.status {
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  width: fit-content;
+
+  &.pending {
+    background: #facc15;
+    color: #000;
+  }
+
+  &.paid {
+    background: #22c55e;
+    color: #000;
+  }
+
+  &.done {
+    background: #3b82f6;
+    color: #fff;
+  }
+
+  &.canceled {
+    background: #ef4444;
+    color: #fff;
+  }
+}

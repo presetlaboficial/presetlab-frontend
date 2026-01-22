@@ -1,6 +1,11 @@
 <section class="order-details" *ngIf="order$ | async as order">
   <h1>Pedido #{{ order.id?.slice(0, 8) }}</h1>
 
+  <div class="status" [class]="order.status">
+  {{ order.status }}
+</div>
+
+
   <p>
     Data:
     {{ order.createdAt?.toDate() | date: "dd/MM/yyyy HH:mm" }}
