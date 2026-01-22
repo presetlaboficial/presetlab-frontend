@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { map, Observable } from 'rxjs';
+import { combineLatest, map, Observable, take } from 'rxjs';
 import { CartService } from '../../core/services/cart.service';
 import { AuthService } from '../../core/services/auth.service';
+import { OrderService } from '../../core/services/order.service';
 import { CartItem } from '../../core/models/cart-item.model';
 import { User } from '@angular/fire/auth';
 
@@ -12,7 +13,7 @@ import { User } from '@angular/fire/auth';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './checkout.component.html',
-  styleUrl: './checkout.component.scss'
+  styleUrl: './checkout.component.scss',
 })
 export class CheckoutComponent {
   cart$!: Observable<CartItem[]>;
@@ -22,6 +23,7 @@ export class CheckoutComponent {
   constructor(
     private cartService: CartService,
     private auth: AuthService,
+    private orderService: OrderService,
     private router: Router,
   ) {
     this.cart$ = this.cartService.cart$;
@@ -35,7 +37,15 @@ export class CheckoutComponent {
   }
 
   confirmOrder() {
-    this.cartService.clearCart();
-    this.router.navigate(['/success']);
+    combineLatest([this.auth.user$, this.cart$, this.total$])
+      .pipe(take(1))
+      .subscribe(([user, items, total]) => {
+        if (!user || !items.length) return;
+
+        this.orderService.createOrder(user.uid, items, total);
+
+        this.cartService.clearCart();
+        this.router.navigate(['/success']);
+      });
   }
 }
