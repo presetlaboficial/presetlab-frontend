@@ -9,6 +9,7 @@ import {
   orderBy,
   docData,
   doc,
+  serverTimestamp,
 } from '@angular/fire/firestore';
 import { Order } from '../models/order.model';
 import { Observable } from 'rxjs';
@@ -24,7 +25,7 @@ export class OrderService {
   createOrder(order: Order) {
     return addDoc(this.ordersRef, {
       ...order,
-      createdAt: new Date(),
+      createdAt: serverTimestamp(),
     });
   }
 

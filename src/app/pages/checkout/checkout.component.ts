@@ -41,20 +41,24 @@ export class CheckoutComponent {
       if (!user) return;
 
       this.cart$.pipe(take(1)).subscribe((items) => {
+        if (!items.length) return;
+
         const total = items.reduce(
           (sum, item) => sum + item.price * item.quantity,
           0,
         );
 
-        this.orderService.createOrder({
+        const order = {
           userId: user.uid,
           items,
           total,
-          status: 'pending',
-        });
+          status: 'pendente' as const,
+        };
 
-        this.cartService.clearCart();
-        this.router.navigate(['/success']);
+        this.orderService.createOrder(order).then(() => {
+          this.cartService.clearCart();
+          this.router.navigate(['/success']);
+        });
       });
     });
   }
