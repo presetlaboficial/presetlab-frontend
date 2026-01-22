@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 
 // Imports
 import { CartService } from '../../../core/services/cart.service';
@@ -31,7 +31,6 @@ export class CartDrawerComponent {
     this.isOpen$ = this.drawer.isOpen$;
     this.items$ = this.cartService.cart$;
 
-    // Calcula total
     this.cartTotal$ = this.items$.pipe(
       map((items) =>
         items.reduce((sum, item) => sum + item.price * item.quantity, 0),
@@ -43,7 +42,6 @@ export class CartDrawerComponent {
     this.drawer.close();
   }
 
-  // Recebe o ID do produto para remover
   remove(id: number) {
     this.cartService.removeFromCart(id);
   }
@@ -55,6 +53,10 @@ export class CartDrawerComponent {
 
   checkout() {
     this.drawer.close();
-    // Lógica de checkout aqui
+
+    this.cartService.cart$.pipe(take(1)).subscribe((items) => {
+      if (!items.length) return;
+      this.router.navigate(['/checkout']);
+    });
   }
 }

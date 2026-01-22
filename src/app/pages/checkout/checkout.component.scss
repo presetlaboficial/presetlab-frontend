@@ -1,0 +1,121 @@
+// Definição de Variáveis (Fácil de alterar o tema depois)
+$primary-color: #4f46e5; // Indigo moderno
+$primary-hover: #4338ca;
+$text-main: #1f2937; // Cinza escuro para leitura
+$text-secondary: #6b7280; // Cinza médio para informações secundárias
+$bg-card: #ffffff;
+$bg-page: #f3f4f6;
+$border-color: #e5e7eb;
+$danger-color: #ef4444;
+
+// Reset básico para garantir consistência
+* {
+  box-sizing: border-box;
+}
+
+// Estilo do Container Principal
+.checkout {
+  background-color: $bg-card;
+  max-width: 480px; // Largura ideal para um "card"
+  margin: 2rem auto; // Centraliza na tela
+  padding: 2rem;
+  border-radius: 12px; // Bordas arredondadas modernas
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06); // Sombra suave
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  color: $text-main;
+
+  // Título
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    color: $text-main;
+  }
+
+  // Email do usuário
+  .email {
+    text-align: center;
+    color: $text-secondary;
+    font-size: 0.875rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid $border-color;
+  }
+
+  // Lista de Itens
+  .item {
+    display: flex;
+    justify-content: space-between; // Nome na esquerda, preço na direita
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px dashed $border-color; // Linha tracejada sutil entre itens
+
+    span:first-child {
+      font-weight: 500;
+    }
+
+    span:last-child {
+      font-family: monospace; // Ajuda a alinhar os números
+      font-size: 1rem;
+    }
+  }
+
+  // Mensagem de carrinho vazio
+  p:not(.email) {
+    text-align: center;
+    color: $text-secondary;
+    font-style: italic;
+    padding: 1rem 0;
+  }
+
+  // Área do Total
+  .total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    font-size: 1.25rem;
+    color: $text-main;
+
+    strong {
+      font-weight: 700;
+    }
+
+    span {
+      font-weight: 800;
+      color: $primary-color;
+    }
+  }
+
+  // Botão de Confirmação
+  .confirm {
+    width: 100%;
+    margin-top: 1.5rem;
+    padding: 0.875rem;
+    background-color: $primary-color;
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+
+    &:hover:not(:disabled) {
+      background-color: $primary-hover;
+    }
+
+    &:active:not(:disabled) {
+      transform: scale(0.98); // Efeito de clique sutil
+    }
+
+    &:disabled {
+      background-color: $text-secondary;
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+}

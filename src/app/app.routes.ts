@@ -7,6 +7,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { AccountComponent } from './pages/account/account.component';
 import { authGuard } from './core/guards/auth.guard';
 import { guestGuard } from './core/guards/guest.guard';
+import { SuccessComponent } from './pages/success/success.component';
 
 export const routes: Routes = [
   {
@@ -36,5 +37,18 @@ export const routes: Routes = [
   {
     path: 'product/:id',
     component: ProductComponent,
+  },
+  // app.routes.ts ou app-routing.module.ts
+  {
+    path: 'checkout',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./pages/checkout/checkout.component').then(
+        (m) => m.CheckoutComponent,
+      ),
+  },
+  {
+    path: 'success',
+    component: SuccessComponent,
   },
 ];

@@ -1,0 +1,29 @@
+<section class="checkout">
+  <h1>Finalizar compra</h1>
+
+  <ng-container *ngIf="user$ | async as user">
+    <p class="email">Logado como: {{ user.email }}</p>
+  </ng-container>
+
+  <ng-container *ngIf="cart$ | async as items">
+    <p *ngIf="items.length === 0">Seu carrinho está vazio.</p>
+
+    <div *ngFor="let item of items" class="item">
+      <span>{{ item.name }}</span>
+      <span>R$ {{ item.price }}</span>
+    </div>
+  </ng-container>
+
+  <div class="total">
+    <strong>Total:</strong>
+    <span>R$ {{ total$ | async }}</span>
+  </div>
+
+  <button
+    class="confirm"
+    [disabled]="(total$ | async) === 0"
+    (click)="confirmOrder()"
+  >
+    Confirmar pedido
+  </button>
+</section>
