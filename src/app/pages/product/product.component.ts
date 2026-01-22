@@ -31,6 +31,10 @@ export class ProductComponent implements OnInit {
     if (!id) return;
 
     this.productService.getProductById(id).subscribe((product) => {
+      if (!product.active) {
+        return;
+      }
+
       this.product = product;
 
       this.productService.getPresets().subscribe((products) => {
