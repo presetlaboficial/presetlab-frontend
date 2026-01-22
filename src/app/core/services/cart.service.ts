@@ -23,7 +23,7 @@ export class CartService {
     items.push({
       productId: product.id,
       name: product.name,
-      price: product.price!,
+      price: product.price,
       image: product.image,
       quantity: 1,
     });
@@ -31,7 +31,7 @@ export class CartService {
     this.updateCart(items);
   }
 
-  removeFromCart(productId: number) {
+  removeFromCart(productId: string) {
     const items = this.cartItems$.value.filter(
       (i) => i.productId !== productId,
     );

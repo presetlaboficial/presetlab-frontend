@@ -1,8 +1,8 @@
 export interface Product {
-  id: number;
+  id: string;
   name: string;
-  price?: number;
-  image: string;
   description: string;
-  category: 'preset' | 'microfone';
+  price: number;
+  image: string;
+  category: string;
 }

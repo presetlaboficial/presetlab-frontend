@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductCardComponent } from '../../components/product-card/product-card.component';
 import { Product } from '../../../core/models/product.model';
+import { ProductService } from '../../../core/services/product.service';
 
 @Component({
   selector: 'app-presets-section',
@@ -10,47 +11,14 @@ import { Product } from '../../../core/models/product.model';
   templateUrl: './presets-section.component.html',
   styleUrls: ['./presets-section.component.scss'],
 })
-export class PresetsSectionComponent {
-  presets: Product[] = [
-    {
-      id: 1,
-      name: 'Preset Matuê - "Xtranho"',
-      description:
-        'Preset profissional desenvolvido para alcançar timbres modernos, limpos e prontos para mixagem. Ideal para trap, rap e vocal melódico',
-      price: 20,
-      image:
-        'assets/imgs/presets/artworks-KJVK9AAzQpNyygGn-qfgyfA-t1080x1080.webp',
-      category: 'preset',
-    },
-    {
-      id: 2,
-      name: 'Preset Matuê - "Xtranho"',
-      description:
-        'Preset profissional desenvolvido para alcançar timbres modernos, limpos e prontos para mixagem. Ideal para trap, rap e vocal melódico',
-      price: 20,
-      image:
-        'assets/imgs/presets/artworks-KJVK9AAzQpNyygGn-qfgyfA-t1080x1080.webp',
-      category: 'preset',
-    },
-    {
-      id: 3,
-      name: 'Preset Matuê - "Xtranho"',
-      description:
-        'Preset profissional desenvolvido para alcançar timbres modernos, limpos e prontos para mixagem. Ideal para trap, rap e vocal melódico',
-      price: 20,
-      image:
-        'assets/imgs/presets/artworks-KJVK9AAzQpNyygGn-qfgyfA-t1080x1080.webp',
-      category: 'preset',
-    },
-    {
-      id: 4,
-      name: 'Preset Matuê - "Xtranho"',
-      description:
-        'Preset profissional desenvolvido para alcançar timbres modernos, limpos e prontos para mixagem. Ideal para trap, rap e vocal melódico',
-      price: 20,
-      image:
-        'assets/imgs/presets/artworks-KJVK9AAzQpNyygGn-qfgyfA-t1080x1080.webp',
-      category: 'preset',
-    },
-  ];
+export class PresetsSectionComponent implements OnInit {
+  presets: Product[] = [];
+
+  constructor(private productService: ProductService) {}
+
+  ngOnInit() {
+    this.productService.getPresets().subscribe((products) => {
+      this.presets = products;
+    });
+  }
 }

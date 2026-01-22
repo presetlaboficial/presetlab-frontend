@@ -22,7 +22,7 @@ export class ProductComponent {
     private cartService: CartService,
     private cartDrawer: CartDrawerService,
   ) {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
+    const id = this.route.snapshot.paramMap.get('id')!;
 
     this.product = {
       id,
@@ -37,7 +37,7 @@ export class ProductComponent {
 
     this.relatedProducts = [
       {
-        id: 2,
+        id: '2',
         name: 'Preset Trap Vocal',
         description:
           'Preset profissional desenvolvido para alcançar timbres modernos, limpos e prontos para mixagem. Ideal para trap, rap e vocal melódico',
@@ -46,7 +46,7 @@ export class ProductComponent {
         category: 'preset',
       },
       {
-        id: 3,
+        id: '3',
         name: 'Preset Boom Bap',
         description:
           'Preset profissional desenvolvido para alcançar timbres modernos, limpos e prontos para mixagem. Ideal para trap, rap e vocal melódico',
@@ -55,7 +55,7 @@ export class ProductComponent {
         category: 'preset',
       },
       {
-        id: 4,
+        id: '4',
         name: 'Preset Drill',
         description:
           'Preset profissional desenvolvido para alcançar timbres modernos, limpos e prontos para mixagem. Ideal para trap, rap e vocal melódico',

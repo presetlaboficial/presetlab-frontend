@@ -42,7 +42,7 @@ export class CartDrawerComponent {
     this.drawer.close();
   }
 
-  remove(id: number) {
+  remove(id: string) {
     this.cartService.removeFromCart(id);
   }
 

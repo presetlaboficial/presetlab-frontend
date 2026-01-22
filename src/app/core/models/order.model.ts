@@ -1,4 +1,4 @@
-import { CartItem } from "./cart-item.model";
+import { CartItem } from './cart-item.model';
 
 export type OrderStatus = 'pending' | 'paid' | 'done' | 'canceled';
 
@@ -7,6 +7,6 @@ export interface Order {
   userId: string;
   items: CartItem[];
   total: number;
-  status: OrderStatus;
+  status: 'pending' | 'paid' | 'cancelled';
   createdAt?: any;
 }
