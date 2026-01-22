@@ -37,12 +37,16 @@ export class CheckoutComponent {
   }
 
   confirmOrder() {
-    combineLatest([this.auth.user$, this.cart$, this.total$])
+    combineLatest([this.user$, this.cart$, this.total$])
       .pipe(take(1))
       .subscribe(([user, items, total]) => {
-        if (!user || !items.length) return;
+        if (!user) return;
 
-        this.orderService.createOrder(user.uid, items, total);
+        this.orderService.createOrder({
+          userId: user.uid,
+          items,
+          total,
+        });
 
         this.cartService.clearCart();
         this.router.navigate(['/success']);

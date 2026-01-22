@@ -19,11 +19,5 @@
     <span>R$ {{ total$ | async }}</span>
   </div>
 
-  <button
-    class="confirm"
-    [disabled]="(total$ | async) === 0"
-    (click)="confirmOrder()"
-  >
-    Confirmar pedido
-  </button>
+  <button (click)="confirmOrder()">Confirmar pedido</button>
 </section>

@@ -17,26 +17,20 @@
         <div class="order" *ngFor="let order of orders">
           <div>
             <strong>Pedido</strong>
-            #{{ order.id.slice(0, 8) }}
+            #{{ order.id?.slice(0, 8) }}
           </div>
 
-          <div>
-            {{ order.items.length }} itens
-          </div>
+          <div>{{ order.items.length }} itens</div>
 
-          <div>
-            R$ {{ order.total | number: '1.2-2' }}
-          </div>
+          <div>R$ {{ order.total | number: "1.2-2" }}</div>
 
           <small>
-            {{ order.createdAt | date: 'dd/MM/yyyy HH:mm' }}
+            {{ order.createdAt?.toDate() | date: "dd/MM/yyyy HH:mm" }}
           </small>
         </div>
       </div>
     </ng-container>
 
-    <button class="logout" (click)="auth.logout()">
-      Sair da conta
-    </button>
+    <button class="logout" (click)="auth.logout()">Sair da conta</button>
   </div>
 </section>

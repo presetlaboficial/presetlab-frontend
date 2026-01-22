@@ -3,24 +3,26 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from '../../core/services/auth.service';
 import { OrderService } from '../../core/services/order.service';
 import { Order } from '../../core/models/order.model';
-import { map, Observable } from 'rxjs';
+import { Observable, of, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-account',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './account.component.html',
-  styleUrl: './account.component.scss'
+  styleUrl: './account.component.scss',
 })
 export class AccountComponent {
-  orders$!: Observable<Order[]>;
+  orders$: Observable<Order[]>;
 
   constructor(
     public auth: AuthService,
     private orderService: OrderService,
   ) {
     this.orders$ = this.auth.user$.pipe(
-      map((user) => (user ? this.orderService.getOrdersByUser(user.uid) : [])),
+      switchMap((user) =>
+        user ? this.orderService.getOrdersByUser(user.uid) : of([]),
+      ),
     );
   }
 }

@@ -1,33 +1,38 @@
 import { Injectable } from '@angular/core';
+import {
+  Firestore,
+  collection,
+  addDoc,
+  collectionData,
+  query,
+  where,
+  orderBy,
+} from '@angular/fire/firestore';
 import { Order } from '../models/order.model';
-import { CartItem } from '../models/cart-item.model';
+import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class OrderService {
-  private storageKey = 'orders';
+  private ordersRef;
 
-  createOrder(userId: string, items: CartItem[], total: number): Order {
-    const order: Order = {
-      id: crypto.randomUUID(),
-      userId,
-      items,
-      total,
-      createdAt: new Date().toISOString(),
-    };
-
-    const orders = this.getAllOrders();
-    orders.push(order);
-
-    localStorage.setItem(this.storageKey, JSON.stringify(orders));
-
-    return order;
+  constructor(private firestore: Firestore) {
+    this.ordersRef = collection(this.firestore, 'orders');
   }
 
-  getAllOrders(): Order[] {
-    return JSON.parse(localStorage.getItem(this.storageKey) || '[]');
+  createOrder(order: Order) {
+    return addDoc(this.ordersRef, {
+      ...order,
+      createdAt: new Date(),
+    });
   }
 
-  getOrdersByUser(userId: string): Order[] {
-    return this.getAllOrders().filter((order) => order.userId === userId);
+  getOrdersByUser(userId: string): Observable<Order[]> {
+    const q = query(
+      this.ordersRef,
+      where('userId', '==', userId),
+      orderBy('createdAt', 'desc'),
+    );
+
+    return collectionData(q, { idField: 'id' }) as Observable<Order[]>;
   }
 }
