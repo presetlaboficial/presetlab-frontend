@@ -3,6 +3,8 @@ import {
   Firestore,
   collection,
   collectionData,
+  doc,
+  docData,
   query,
   where,
 } from '@angular/fire/firestore';
@@ -24,5 +26,10 @@ export class ProductService {
     );
 
     return collectionData(q, { idField: 'id' }) as Observable<Product[]>;
+  }
+
+  getProductById(id: string): Observable<Product> {
+    const productRef = doc(this.firestore, `products/${id}`);
+    return docData(productRef, { idField: 'id' }) as Observable<Product>;
   }
 }

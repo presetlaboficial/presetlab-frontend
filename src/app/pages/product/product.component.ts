@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ProductCardComponent } from '../../shared/components/product-card/product-card.component';
 import { Product } from '../../core/models/product.model';
 import { CartService } from '../../core/services/cart.service';
 import { CartDrawerService } from '../../core/services/cart-drawer.service';
+import { ProductService } from '../../core/services/product.service';
 
 @Component({
   standalone: true,
@@ -13,61 +14,35 @@ import { CartDrawerService } from '../../core/services/cart-drawer.service';
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.scss'],
 })
-export class ProductComponent {
+export class ProductComponent implements OnInit {
   product!: Product;
   relatedProducts: Product[] = [];
 
   constructor(
     private route: ActivatedRoute,
+    private productService: ProductService,
     private cartService: CartService,
     private cartDrawer: CartDrawerService,
-  ) {
-    const id = this.route.snapshot.paramMap.get('id')!;
+  ) {}
 
-    this.product = {
-      id,
-      name: 'Preset Matuê - "Xtranho"',
-      description:
-        'Preset profissional desenvolvido para alcançar timbres modernos, limpos e prontos para mixagem. Ideal para trap, rap e vocal melódico',
-      price: 20,
-      image:
-        'assets/imgs/presets/artworks-KJVK9AAzQpNyygGn-qfgyfA-t1080x1080.webp',
-      category: 'preset',
-    };
+  ngOnInit() {
+    const id = this.route.snapshot.paramMap.get('id');
 
-    this.relatedProducts = [
-      {
-        id: '2',
-        name: 'Preset Trap Vocal',
-        description:
-          'Preset profissional desenvolvido para alcançar timbres modernos, limpos e prontos para mixagem. Ideal para trap, rap e vocal melódico',
-        price: 15,
-        image: this.product.image,
-        category: 'preset',
-      },
-      {
-        id: '3',
-        name: 'Preset Boom Bap',
-        description:
-          'Preset profissional desenvolvido para alcançar timbres modernos, limpos e prontos para mixagem. Ideal para trap, rap e vocal melódico',
-        price: 18,
-        image: this.product.image,
-        category: 'preset',
-      },
-      {
-        id: '4',
-        name: 'Preset Drill',
-        description:
-          'Preset profissional desenvolvido para alcançar timbres modernos, limpos e prontos para mixagem. Ideal para trap, rap e vocal melódico',
-        price: 22,
-        image: this.product.image,
-        category: 'preset',
-      },
-    ];
+    if (!id) return;
+
+    this.productService.getProductById(id).subscribe((product) => {
+      this.product = product;
+
+      this.productService.getPresets().subscribe((products) => {
+        this.relatedProducts = products
+          .filter((p) => p.id !== product.id)
+          .slice(0, 3);
+      });
+    });
   }
 
   addToCart() {
     this.cartService.addToCart(this.product);
-    this.cartDrawer.open(); // UX 🔥
+    this.cartDrawer.open();
   }
 }

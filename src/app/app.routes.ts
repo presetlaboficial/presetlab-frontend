@@ -36,9 +36,11 @@ export const routes: Routes = [
   },
   {
     path: 'product/:id',
-    component: ProductComponent,
+    loadComponent: () =>
+      import('./pages/product/product.component').then(
+        (m) => m.ProductComponent,
+      ),
   },
-  // app.routes.ts ou app-routing.module.ts
   {
     path: 'checkout',
     canActivate: [authGuard],
