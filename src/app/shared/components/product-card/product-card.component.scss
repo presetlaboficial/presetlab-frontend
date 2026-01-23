@@ -1,7 +1,6 @@
-// --- Variáveis do Tema ---
-$bg-card: #1f2229; // Um pouco mais claro que o fundo da página
+$bg-card: #1f2229;
 $bg-hover: #252830;
-$primary: #c9a14a; // Dourado
+$primary: #c9a14a;
 $primary-hover: #b8913e;
 $text-white: #ffffff;
 $text-gray: #9ca3af;
@@ -13,21 +12,21 @@ $border-radius: 16px;
   flex-direction: column;
   background-color: $bg-card;
   border-radius: $border-radius;
-  overflow: hidden; // Para conter a imagem no zoom
+  overflow: hidden;
   text-decoration: none;
   color: $text-white;
-  border: 1px solid transparent; // Previne pulo de layout no hover
+  border: 1px solid transparent;
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   position: relative;
-  height: 100%; // Garante altura igual em grid
-  max-width: 300px; // Conforme seu original
+  height: 100%;
+  max-width: 250px;
 
   // Efeito de Hover no Card Inteiro
   &:hover {
     transform: translateY(-6px);
     background-color: $bg-hover;
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
-    border-color: rgba($primary, 0.3); // Borda sutil dourada
+    border-color: rgba($primary, 0.3);
 
     // Zoom na imagem quando hover no card
     .image-container img {
@@ -39,8 +38,8 @@ $border-radius: 16px;
 // --- Imagem ---
 .image-container {
   width: 100%;
-  aspect-ratio: 1 / 1; // Mantém quadrado (ou use 4/3)
-  background-color: #111; // Placeholder escuro
+  aspect-ratio: 1 / 1;
+  background-color: #111;
   overflow: hidden;
   position: relative;
 
@@ -48,7 +47,7 @@ $border-radius: 16px;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.5s ease; // Zoom suave
+    transition: transform 0.5s ease;
   }
 }
 
@@ -71,7 +70,7 @@ $border-radius: 16px;
 
   // --- Bloco de Truncagem Multi-linha ---
   display: -webkit-box;
-  -webkit-line-clamp: 2; 
+  -webkit-line-clamp: 2;
   line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
@@ -85,7 +84,7 @@ $border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: auto; // Empurra para baixo
+  margin-top: auto;
 }
 
 .price-info {
@@ -108,12 +107,12 @@ $border-radius: 16px;
 
 // --- Botão de Adicionar ---
 .btn-add {
-  background-color: rgba($primary, 0.1); // Fundo translúcido
+  background-color: rgba($primary, 0.1);
   color: $primary;
   border: 1px solid rgba($primary, 0.3);
   width: 36px;
   height: 36px;
-  border-radius: 10px; // Quadrado arredondado moderno
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -123,7 +122,7 @@ $border-radius: 16px;
 
   &:hover {
     background-color: $primary;
-    color: #000; // Contraste preto no dourado
+    color: #000;
     transform: scale(1.05);
     box-shadow: 0 4px 10px rgba($primary, 0.3);
   }
