@@ -1,6 +1,33 @@
 <section class="success-page">
-  <h1>Pedido confirmado 🎉</h1>
-  <p>Obrigado pela sua compra!</p>
+  <div class="success-card">
+    <div class="checkmark-wrapper">
+      <svg
+        class="checkmark"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 52 52"
+      >
+        <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none" />
+        <path
+          class="checkmark-check"
+          fill="none"
+          d="M14.1 27.2l7.1 7.2 16.7-16.8"
+        />
+      </svg>
+    </div>
 
-  <a routerLink="/">Voltar para a loja</a>
+    <h1>Pagamento Confirmado!</h1>
+
+    <p class="subtitle">
+      Obrigado pela sua compra. Enviamos um e-mail com a confirmação e os
+      detalhes do seu pedido.
+    </p>
+
+    <div class="actions">
+      <button routerLink="/account" class="btn-primary">
+        Ver meus pedidos
+      </button>
+
+      <a routerLink="/" class="btn-link"> Voltar para a loja </a>
+    </div>
+  </div>
 </section>
