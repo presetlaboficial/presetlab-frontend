@@ -31,4 +31,8 @@ export class OrderDetailsComponent {
       }),
     );
   }
+
+  goBack() {
+    this.router.navigate(['/account']);
+  }
 }

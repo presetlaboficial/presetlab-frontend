@@ -7,6 +7,7 @@ import { AuthService } from '../../core/services/auth.service';
 import { OrderService } from '../../core/services/order.service';
 import { CartItem } from '../../core/models/cart-item.model';
 import { User } from '@angular/fire/auth';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-checkout',
@@ -23,6 +24,7 @@ export class CheckoutComponent {
   constructor(
     private cartService: CartService,
     private auth: AuthService,
+    private http: HttpClient,
     private orderService: OrderService,
     private router: Router,
   ) {
@@ -43,22 +45,23 @@ export class CheckoutComponent {
       this.cart$.pipe(take(1)).subscribe((items) => {
         if (!items.length) return;
 
-        const total = items.reduce(
-          (sum, item) => sum + item.price * item.quantity,
-          0,
-        );
-
-        const order = {
+        // payload para o backend
+        const payload = {
           userId: user.uid,
-          items,
-          total,
-          status: 'pendente' as const,
+          items: items,
         };
 
-        this.orderService.createOrder(order).then(() => {
-          this.cartService.clearCart();
-          this.router.navigate(['/success']);
-        });
+        // Chama seu backend local
+        this.http
+          .post<{
+            url: string;
+          }>('http://localhost:3000/create-checkout-session', payload)
+          .subscribe({
+            next: (response) => {
+              window.location.href = response.url;
+            },
+            error: (err) => console.error('Erro ao iniciar pagamento', err),
+          });
       });
     });
   }

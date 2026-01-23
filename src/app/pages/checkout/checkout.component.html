@@ -1,23 +1,69 @@
-<section class="checkout">
-  <h1>Finalizar compra</h1>
+<section class="checkout-card">
+  <header class="checkout-header">
+    <h1>Finalizar Pedido</h1>
+    <ng-container *ngIf="user$ | async as user">
+      <div class="user-badge">
+        <span class="avatar">
+          {{ user.email?.[0] | uppercase }}
+        </span>
+        <span class="email">{{ user.email }}</span>
+      </div>
+    </ng-container>
+  </header>
 
-  <ng-container *ngIf="user$ | async as user">
-    <p class="email">Logado como: {{ user.email }}</p>
-  </ng-container>
+  <div class="items-container">
+    <ng-container *ngIf="cart$ | async as items">
+      <div *ngIf="items.length === 0" class="empty-state">
+        <i class="icon-cart-empty"></i>
+        <p>Seu carrinho está vazio.</p>
+        <button class="btn-link">Voltar à loja</button>
+      </div>
 
-  <ng-container *ngIf="cart$ | async as items">
-    <p *ngIf="items.length === 0">Seu carrinho está vazio.</p>
+      <ul *ngIf="items.length > 0" class="item-list">
+        <li *ngFor="let item of items" class="item">
+          <div class="item-image">
+            <img
+              [src]="item.image || 'assets/placeholder.png'"
+              alt="{{ item.name }}"
+            />
+          </div>
 
-    <div *ngFor="let item of items" class="item">
-      <span>{{ item.name }}</span>
-      <span>R$ {{ item.price }}</span>
-    </div>
-  </ng-container>
+          <div class="item-details">
+            <span class="item-name">{{ item.name }}</span>
+            <span class="item-qty">Qtd: {{ item.quantity || 1 }}</span>
+          </div>
 
-  <div class="total">
-    <strong>Total:</strong>
-    <span>R$ {{ total$ | async }}</span>
+          <div class="item-price">
+            {{ item.price | currency: "BRL" }}
+          </div>
+        </li>
+      </ul>
+    </ng-container>
   </div>
 
-  <button (click)="confirmOrder()">Confirmar pedido</button>
+  <footer class="checkout-footer">
+    <div class="summary-row">
+      <span>Subtotal</span>
+      <span>{{ total$ | async | currency: "BRL" }}</span>
+    </div>
+    <div class="summary-row highlight">
+      <strong>Total</strong>
+      <strong class="total-price">{{
+        total$ | async | currency: "BRL"
+      }}</strong>
+    </div>
+
+    <button
+      (click)="confirmOrder()"
+      [disabled]="(cart$ | async)?.length === 0"
+      class="btn-confirm"
+    >
+      Confirmar e Pagar
+      <span class="arrow">→</span>
+    </button>
+
+    <p class="security-note">
+      <span class="lock-icon">🔒</span> Ambiente seguro
+    </p>
+  </footer>
 </section>

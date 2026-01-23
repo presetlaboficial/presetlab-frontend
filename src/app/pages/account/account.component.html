@@ -1,44 +1,81 @@
 <section class="account-page">
   <div class="account-card">
-    <h1>Minha Conta</h1>
+    <header class="profile-header">
+      <div class="avatar-circle">
+        {{ (auth.user$ | async)?.email?.[0] | uppercase }}
+      </div>
+      <div class="profile-info">
+        <h1>Minha Conta</h1>
+        <p class="email">{{ (auth.user$ | async)?.email }}</p>
+      </div>
+    </header>
 
-    <p class="email">
-      {{ (auth.user$ | async)?.email }}
-    </p>
+    <div class="divider"></div>
 
-    <h2>Meus pedidos</h2>
+    <div class="section-title">
+      <h2>Histórico de Pedidos</h2>
+    </div>
 
     <ng-container *ngIf="orders$ | async as orders">
-      <div *ngIf="orders.length === 0" class="empty">
+      <div *ngIf="orders.length === 0" class="empty-state">
+        <span class="icon">📦</span>
         <p>Você ainda não fez nenhum pedido.</p>
+        <button routerLink="/" class="btn-shop">Ir às compras</button>
       </div>
 
-      <div class="orders">
+      <div class="orders-list">
         <div
-          class="order"
+          class="order-item"
           *ngFor="let order of orders"
           [routerLink]="['/account/orders', order.id]"
         >
-          <div>
-            <strong>Pedido</strong>
-            #{{ order.id?.slice(0, 8) }}
+          <div class="order-top">
+            <div class="id-group">
+              <span class="label">Pedido</span>
+              <strong class="order-id"
+                >#{{ order.id?.slice(0, 8) | uppercase }}</strong
+              >
+            </div>
+
+            <span class="status-badge" [ngClass]="order.status">
+              {{ order.status | titlecase }}
+            </span>
           </div>
 
-          <div>{{ order.items.length }} itens</div>
-
-          <div>R$ {{ order.total | number: "1.2-2" }}</div>
-
-          <div class="status" [class]="order.status">
-            {{ order.status }}
+          <div class="order-details">
+            <div class="info-col">
+              <span class="label">Data</span>
+              <span>{{ order.createdAt?.toDate() | date: "dd/MM/yyyy" }}</span>
+            </div>
+            <div class="info-col">
+              <span class="label">Itens</span>
+              <span>{{ order.items.length }} produto(s)</span>
+            </div>
+            <div class="info-col total-col">
+              <span class="label">Total</span>
+              <strong class="total-value">{{
+                order.total | currency: "BRL"
+              }}</strong>
+            </div>
           </div>
 
-          <small>
-            {{ order.createdAt?.toDate() | date: "dd/MM/yyyy HH:mm" }}
-          </small>
+          <div *ngIf="order.status === 'pendente'" class="quick-action">
+            <a
+              [href]="order.stripeUrl"
+              class="btn-pay-sm"
+              (click)="$event.stopPropagation()"
+            >
+              Pagar Agora →
+            </a>
+          </div>
         </div>
       </div>
     </ng-container>
 
-    <button class="logout" (click)="auth.logout()">Sair da conta</button>
+    <div class="divider"></div>
+
+    <button class="btn-logout" (click)="auth.logout()">
+      Sair da conta
+    </button>
   </div>
 </section>
