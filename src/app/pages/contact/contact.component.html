@@ -1,0 +1,66 @@
+<section class="contact-page">
+  <div class="contact-card">
+    <header class="form-header">
+      <div class="icon-circle">
+        <i class="fas fa-envelope"></i>
+      </div>
+      <h2>Entre em Contato</h2>
+      <p>Dúvidas sobre presets ou suporte? Envie uma mensagem.</p>
+    </header>
+
+    <form (submit)="onSubmit($event)">
+      <input type="hidden" name="page_source" value="Contato" />
+
+      <div class="form-group">
+        <label for="name">Seu Nome</label>
+        <div class="input-wrapper">
+          <i class="fas fa-user input-icon"></i>
+          <input
+            type="text"
+            id="name"
+            name="user_name"
+            required
+            placeholder="Digite seu nome completo"
+          />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Endereço de Email</label>
+        <div class="input-wrapper">
+          <i class="fas fa-at input-icon"></i>
+          <input
+            type="email"
+            id="email"
+            name="user_email"
+            required
+            placeholder="exemplo@email.com"
+          />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="message">Sua Mensagem</label>
+        <div class="input-wrapper textarea-wrapper">
+          <i class="fas fa-comment-alt input-icon"></i>
+          <textarea
+            id="message"
+            name="message"
+            required
+            rows="5"
+            placeholder="Como podemos te ajudar hoje?"
+          ></textarea>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-submit" [disabled]="isLoading">
+        <span *ngIf="!isLoading">
+          Enviar Mensagem <i class="fas fa-paper-plane"></i>
+        </span>
+        <span *ngIf="isLoading" class="loading-state">
+          <i class="fas fa-circle-notch fa-spin"></i> Enviando...
+        </span>
+      </button>
+    </form>
+  </div>
+</section>

@@ -8,6 +8,8 @@ import { AccountComponent } from './pages/account/account.component';
 import { authGuard } from './core/guards/auth.guard';
 import { guestGuard } from './core/guards/guest.guard';
 import { SuccessComponent } from './pages/success/success.component';
+import { ContactComponent } from './pages/contact/contact.component';
+import { OrdersComponent } from './pages/orders/orders.component';
 
 export const routes: Routes = [
   {
@@ -18,6 +20,14 @@ export const routes: Routes = [
   {
     path: 'dmca',
     component: DmcaComponent,
+  },
+  {
+    path: 'contact',
+    component: ContactComponent
+  },
+  {
+    path: 'orders',
+    component: OrdersComponent
   },
   {
     path: 'login',
