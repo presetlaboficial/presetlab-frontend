@@ -55,11 +55,18 @@
 
     <button
       (click)="confirmOrder()"
-      [disabled]="(cart$ | async)?.length === 0"
+      [disabled]="(cart$ | async)?.length === 0 || isLoading"
       class="btn-confirm"
+      [class.loading]="isLoading"
     >
-      Confirmar e Pagar
-      <span class="arrow">→</span>
+      <ng-container *ngIf="!isLoading; else loadingText">
+        Confirmar e Pagar
+        <span class="arrow">→</span>
+      </ng-container>
+
+      <ng-template #loadingText>
+        Processando...
+      </ng-template>
     </button>
 
     <p class="security-note">
