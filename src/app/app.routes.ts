@@ -16,33 +16,40 @@ export const routes: Routes = [
     path: '',
     component: HomeComponent,
     pathMatch: 'full',
+    title: 'PresetLab'
   },
   {
     path: 'dmca',
     component: DmcaComponent,
+    title: 'DMCA - PresetLab'
   },
   {
     path: 'contact',
-    component: ContactComponent
+    component: ContactComponent,
+    title: 'Contato - PresetLab'
   },
   {
     path: 'orders',
-    component: OrdersComponent
+    component: OrdersComponent,
+    title: 'Pedidos - PresetLab'
   },
   {
     path: 'login',
     component: LoginComponent,
     canActivate: [guestGuard],
+    title: 'Login - PresetLab'
   },
   {
     path: 'register',
     component: RegisterComponent,
     canActivate: [guestGuard],
+    title: 'Registro - PresetLab'
   },
   {
     path: 'account',
     component: AccountComponent,
     canActivate: [authGuard],
+    title: 'Minha Conta - PresetLab'
   },
   {
     path: 'product/:id',
@@ -62,6 +69,7 @@ export const routes: Routes = [
   {
     path: 'success',
     component: SuccessComponent,
+    title: 'Compra Finalizada - PresetLab'
   },
   {
     path: 'account/orders/:id',
@@ -69,5 +77,6 @@ export const routes: Routes = [
       import('./pages/account/order-details/order-details.component').then(
         (m) => m.OrderDetailsComponent,
       ),
+      title: 'Detalhes - PresetLab'
   },
 ];
