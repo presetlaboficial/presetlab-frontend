@@ -1,10 +1,15 @@
 <section class="presets-section">
-  <h2>PRESETS</h2>
+  <header class="section-header">
+    <h2>Presets</h2>
+    <div class="divider"></div>
+  </header>
 
-  <div class="grid">
+  <div class="products-grid">
     <app-product-card
       *ngFor="let preset of presets"
-      [product]="preset">
+      [product]="preset"
+      class="grid-item"
+    >
     </app-product-card>
   </div>
 </section>

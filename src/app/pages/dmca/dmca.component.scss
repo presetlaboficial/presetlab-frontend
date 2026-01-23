@@ -1,74 +1,244 @@
-.dmca-page {
-  min-height: 100vh;
-  padding: 60px 20px;
-  background: linear-gradient(
-    to bottom,
-    #0c0f14,
-    #11141b
-  );
-  color: #eaeaea;
+$bg-page: #0f1115;
+$bg-card: #17191e;
+$bg-highlight: #1f2229;
+$primary: #c9a14a;
+$text-white: #ffffff;
+$text-gray: #9ca3af;
+$border-color: rgba(255, 255, 255, 0.08);
+$warning-color: #f59e0b;
+
+:host {
+  display: block;
 }
 
-.dmca-container {
-  max-width: 900px;
-  margin: 0 auto;
-  background: #17191e;
-  padding: 40px;
+.dmca-page {
+  min-height: 100vh;
+  padding: 4rem 1.5rem;
+  background-color: $bg-page;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+}
+
+.dmca-card {
+  max-width: 800px;
+  width: 100%;
+  background-color: $bg-card;
   border-radius: 16px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+  padding: 3rem;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  border: 1px solid $border-color;
+  color: $text-gray;
 
-  h1 {
-    font-size: 3rem;
-    margin-bottom: 16px;
-  }
+  // --- Header ---
+  .dmca-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
 
-  h2 {
-    margin-top: 32px;
-    margin-bottom: 12px;
-    font-size: 1.5rem;
-    color: #d4af37;
-  }
+    .icon-header {
+      font-size: 2rem;
+      color: $primary;
+      margin-bottom: 1rem;
+      opacity: 0.8;
+    }
 
-  p {
-    font-size: 1.5rem;
-    line-height: 1.7;
-    margin-bottom: 14px;
-    opacity: 0.9;
-  }
+    h1 {
+      color: $text-white;
+      font-size: 2rem;
+      font-weight: 700;
+      margin: 0 0 1rem 0;
+      letter-spacing: 1px;
+    }
 
-  ul {
-    margin: 16px 0 24px;
-    padding-left: 20px;
-
-    li {
-      margin-bottom: 8px;
-      font-size: 1.5rem;
+    .divider {
+      width: 60px;
+      height: 3px;
+      background: $primary;
+      margin: 0 auto;
+      border-radius: 2px;
     }
   }
 
-  hr {
-    border: none;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    margin: 24px 0;
+  // --- Box de Contato ---
+  .contact-highlight {
+    background-color: $bg-highlight;
+    border: 1px solid rgba($primary, 0.2);
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+
+    .icon-box {
+      width: 50px;
+      height: 50px;
+      background: rgba($primary, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: $primary;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .contact-text {
+      .label {
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 0.25rem;
+        color: $text-gray;
+      }
+
+      .email-link {
+        color: $text-white;
+        font-size: 1.1rem;
+        font-weight: 700;
+        text-decoration: none;
+        transition: color 0.2s;
+        border-bottom: 1px dashed rgba($primary, 0.5);
+
+        &:hover {
+          color: $primary;
+          border-bottom-style: solid;
+        }
+      }
+    }
+  }
+
+  // --- Conteúdo ---
+  .content-body {
+    h2 {
+      color: $text-white;
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      &::before {
+        content: '';
+        display: block;
+        width: 4px;
+        height: 18px;
+        background: $primary;
+        border-radius: 2px;
+      }
+    }
+
+    p {
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+      font-size: 1rem;
+
+      strong {
+        color: $text-white;
+      }
+    }
+  }
+
+  // --- Lista de Requisitos ---
+  .requirements-list {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0 2.5rem;
+    display: grid;
+    gap: 0.8rem;
+
+    li {
+      background: rgba(255, 255, 255, 0.02);
+      padding: 0.8rem 1rem;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.95rem;
+
+      i {
+        color: $primary;
+        font-size: 0.8rem;
+      }
+    }
+  }
+
+  // --- Aviso (Warning) ---
+  .warning-box {
+    border-left: 3px solid $warning-color;
+    background: linear-gradient(90deg, rgba($warning-color, 0.05) 0%, transparent 100%);
+    padding: 1rem 1.5rem;
+    border-radius: 0 8px 8px 0;
+    margin-bottom: 2rem;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+
+    i {
+      color: $warning-color;
+      font-size: 1.2rem;
+      margin-top: 2px;
+    }
+
+    p {
+      margin: 0;
+      color: lighten($warning-color, 10%);
+      font-size: 0.95rem;
+    }
+  }
+
+  .processing-time {
+    font-size: 0.9rem;
+    color: $text-white;
+    opacity: 0.8;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    i {
+      color: $primary;
+    }
+  }
+
+  // --- Footer e Disclaimer ---
+  .divider-full {
+    height: 1px;
+    background: $border-color;
+    margin: 3rem 0;
+  }
+
+  .disclaimer-footer {
+    h3 {
+      font-size: 1.1rem;
+      color: $text-white;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    p {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin: 0;
+      opacity: 0.7;
+    }
   }
 }
 
-.dmca-highlight {
-  font-size: 16px;
-  font-weight: 500;
-  margin-bottom: 12px;
-}
-
-.dmca-email {
-  font-size: 15px;
-  margin-bottom: 20px;
-
-  strong {
-    color: #d4af37;
+// --- Responsividade ---
+@media (max-width: 600px) {
+  .dmca-card {
+    padding: 2rem 1.5rem;
   }
-}
 
-.warning {
-  color: #ffb84d;
-  font-weight: 500;
+  .contact-highlight {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+
+    .email-link {
+      font-size: 1rem;
+      word-break: break-all;
+    }
+  }
 }

@@ -18,7 +18,6 @@
 
     <ng-container *ngIf="orders$ | async as orders">
       <div *ngIf="orders.length === 0" class="empty-state">
-        <span class="icon">📦</span>
         <p>Você ainda não fez nenhum pedido.</p>
         <button routerLink="/" class="btn-shop">Ir às compras</button>
       </div>

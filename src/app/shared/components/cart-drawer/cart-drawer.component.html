@@ -1,48 +1,73 @@
-<div class="overlay" *ngIf="isOpen$ | async" (click)="close()"></div>
+<div class="overlay" [class.visible]="isOpen$ | async" (click)="close()"></div>
 
 <aside class="drawer" [class.open]="isOpen$ | async">
   <header class="drawer-header">
-    <h3>Seu Carrinho</h3>
-    <button (click)="close()">✕</button>
+    <div class="header-title">
+      <i class="fas fa-shopping-bag"></i>
+      <h3>Seu Carrinho</h3>
+    </div>
+    <button class="btn-close" (click)="close()">
+      <i class="fas fa-times"></i>
+    </button>
   </header>
 
-  <div class="items">
+  <div class="items-container">
     <ng-container *ngIf="items$ | async as items">
-      <div *ngFor="let item of items" class="item">
-        <img [src]="item.image || 'assets/placeholder.png'" [alt]="item.name" />
-
-        <div class="info">
-          <div>{{ item.name }}</div>
-          <small>{{ item.quantity }}x R$ {{ item.price }}</small>
-        </div>
-
-        <button class="remove" (click)="remove(item.productId)">🗑️</button>
-      </div>
-
-      <div *ngIf="items.length === 0" class="empty">
+      <div *ngIf="items.length === 0" class="empty-state">
+        <i class="fas fa-shopping-cart empty-icon"></i>
         <p>Seu carrinho está vazio.</p>
+        <button class="btn-continue" (click)="close()">
+          Continuar comprando
+        </button>
       </div>
+
+      <ul *ngIf="items.length > 0" class="items-list">
+        <li *ngFor="let item of items" class="cart-item">
+          <div class="item-image">
+            <img
+              [src]="item.image || 'assets/placeholder.png'"
+              [alt]="item.name"
+            />
+          </div>
+
+          <div class="item-info">
+            <span class="item-name">{{ item.name }}</span>
+            <div class="item-meta">
+              <span class="qty">Qtd: {{ item.quantity }}</span>
+              <span class="price">{{ item.price | currency: "BRL" }}</span>
+            </div>
+          </div>
+
+          <button
+            class="btn-remove"
+            (click)="remove(item.productId)"
+            title="Remover item"
+          >
+            <i class="fas fa-trash-alt"></i>
+          </button>
+        </li>
+      </ul>
     </ng-container>
   </div>
 
   <footer class="drawer-footer" *ngIf="cartTotal$ | async as total">
     <ng-container *ngIf="total > 0">
-      <div class="total">
-        <span>Total</span>
-        <strong>R$ {{ total | number: "1.2-2" }}</strong>
+      <div class="total-row">
+        <span>Subtotal</span>
+        <strong class="total-value">{{ total | currency: "BRL" }}</strong>
       </div>
 
       <button
-        class="checkout"
+        class="btn-checkout"
         *ngIf="auth.user$ | async; else loginRequired"
         (click)="checkout()"
       >
-        Finalizar compra
+        Finalizar Compra <i class="fas fa-arrow-right"></i>
       </button>
 
       <ng-template #loginRequired>
-        <button class="checkout disabled" (click)="goToLogin()">
-          Faça login para continuar
+        <button class="btn-checkout btn-login" (click)="goToLogin()">
+          <i class="fas fa-lock"></i> Faça login para finalizar
         </button>
       </ng-template>
     </ng-container>

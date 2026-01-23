@@ -1,36 +1,87 @@
+// --- Variáveis do Tema ---
+$bg-page: #17191e; // Fundo da página (se a section não for transparente)
+$primary: #c9a14a; // Dourado
+$text-white: #ffffff;
+$max-width: 1400px;
+
+:host {
+  display: block;
+}
+
 .presets-section {
-  padding: 40px 60px;
-  max-width: 1400px;
+  padding: 4rem 2rem; // Mais espaço vertical para respirar
+  max-width: $max-width;
   margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-h2 {
-  color: #ffffff;
-  font-size: 2rem;
-  font-weight: 500;
-}
+// --- Cabeçalho da Seção ---
+.section-header {
+  text-align: center;
+  margin-bottom: 3.5rem; // Espaço entre título e cards
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 28px;
-}
+  h2 {
+    color: $text-white;
+    font-size: 2.25rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px; // Espaçamento entre letras = Premium
+    margin: 0 0 1rem 0;
+  }
 
-/* Responsivo */
-@media (max-width: 1200px) {
-  .grid {
-    grid-template-columns: repeat(3, 1fr);
+  // Linha dourada decorativa
+  .divider {
+    width: 60px;
+    height: 4px;
+    background-color: $primary;
+    border-radius: 2px;
   }
 }
 
+// --- Grid de Produtos ---
+.products-grid {
+  display: grid;
+  // Define o layout base (Desktop Grande)
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem; // Espaçamento consistente (32px)
+
+  // Garante que os cards estiquem para ter a mesma altura na linha
+  align-items: stretch;
+}
+
+// --- Responsividade ---
+
+// Telas Médias (Laptops pequenos / Tablets deitada)
+@media (max-width: 1200px) {
+  .products-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .presets-section {
+    padding: 3rem 1.5rem; // Reduz padding lateral
+  }
+}
+
+// Tablets (Retrato)
 @media (max-width: 900px) {
-  .grid {
+  .products-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (max-width: 500px) {
-  .grid {
-    grid-template-columns: 1fr;
+// Mobile
+@media (max-width: 550px) {
+  .products-grid {
+    grid-template-columns: 1fr; // Um card por linha
+    gap: 2rem; // Mais espaço entre cards no scroll vertical
+  }
+
+  .section-header h2 {
+    font-size: 1.75rem; // Título um pouco menor no celular
   }
 }

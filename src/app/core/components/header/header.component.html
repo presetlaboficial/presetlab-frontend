@@ -1,79 +1,80 @@
-<header>
-  <!-- DESKTOP HEADER LINE -->
-  <div class="header-desktop">
-    <div class="logo-desktop">
+<header class="main-header">
+  <div class="container">
+
+    <div class="logo-area">
       <a routerLink="/">
-        <img src="assets/imgs/logoPresetLab.jpg" alt="Logo PresetLab" />
+        <img src="assets/imgs/logoPresetLab.jpg" alt="PresetLab Logo" />
       </a>
     </div>
 
-    <div class="actions-desktop">
-      <div class="cart-icon" (click)="openCart()">
+    <nav class="desktop-nav">
+      <ul>
+        <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Início</a></li>
+        <li><a routerLink="/presets" routerLinkActive="active">Presets</a></li>
+        <li><a routerLink="/tutorials" routerLinkActive="active">Tutoriais</a></li>
+        <li><a routerLink="/plugins" routerLinkActive="active">Plugins</a></li>
+      </ul>
+    </nav>
+
+    <div class="actions-area">
+
+      <button class="icon-btn cart-btn" (click)="openCart()">
         <i class="fas fa-shopping-cart"></i>
         <span class="badge" *ngIf="cartCount > 0">{{ cartCount }}</span>
-      </div>
-
-      <div class="auth-actions">
-        <ng-container *ngIf="auth.user$ | async; else loggedOut">
-          <a class="account" routerLink="/account">Minha conta</a>
-          <button class="logout" (click)="auth.logout()">Sair</button>
-        </ng-container>
-
-        <ng-template #loggedOut>
-          <a class="login" routerLink="/login">Entrar</a>
-          <a class="register" routerLink="/register">Registrar</a>
-        </ng-template>
-      </div>
-    </div>
-  </div>
-
-  <!-- MOBILE TOP BAR -->
-  <div class="top-bar">
-    <div class="logo">
-      <a routerLink="/">
-        <img src="assets/imgs/logoPresetLab.jpg" alt="Logo PresetLab" />
-      </a>
-    </div>
-
-    <div class="right-actions">
-      <div class="cart-icon" (click)="openCart()">
-        <i class="fas fa-shopping-cart"></i>
-        <span class="badge" *ngIf="cartCount > 0">{{ cartCount }}</span>
-      </div>
-
-      <button class="mobile-menu-button" (click)="toggleMenu()">
-        <i class="fas fa-bars"></i>
       </button>
+
+      <div class="auth-desktop">
+        <ng-container *ngIf="auth.user$ | async as user; else loggedOutDesktop">
+
+          <a routerLink="/account" class="user-profile">
+            <div class="avatar-circle">
+              {{ user.email?.[0] | uppercase }}
+            </div>
+            <span class="username">Minha Conta</span>
+          </a>
+
+          <button class="btn-logout" (click)="auth.logout()">
+            <i class="fas fa-sign-out-alt"></i>
+          </button>
+
+        </ng-container>
+
+        <ng-template #loggedOutDesktop>
+          <a routerLink="/login" class="link-login">Entrar</a>
+          <a routerLink="/register" class="btn-register">Começar</a>
+        </ng-template>
+      </div>
+
+      <button class="icon-btn mobile-toggle" (click)="toggleMenu()">
+        <i class="fas" [class.fa-bars]="!menuOpen" [class.fa-times]="menuOpen"></i>
+      </button>
+
     </div>
   </div>
 
-  <!-- MENU -->
-  <nav>
-    <ul class="desktop-menu">
-      <li><a routerLink="/">Início</a></li>
-      <li><a>Presets</a></li>
-      <li><a>Tutoriais</a></li>
-      <li><a>Plugins</a></li>
-    </ul>
+  <div class="mobile-dropdown" [class.open]="menuOpen">
+    <nav class="mobile-nav">
+      <a routerLink="/" (click)="closeMenu()" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Início</a>
+      <a routerLink="/presets" (click)="closeMenu()" routerLinkActive="active">Presets</a>
+      <a routerLink="/tutorials" (click)="closeMenu()" routerLinkActive="active">Tutoriais</a>
+      <a routerLink="/plugins" (click)="closeMenu()" routerLinkActive="active">Plugins</a>
 
-    <ul class="mobile-menu" [class.show]="menuOpen">
-      <li><a routerLink="/" (click)="closeMenu()">Início</a></li>
-      <li><a>Presets</a></li>
-      <li><a>Tutoriais</a></li>
-      <li><a>Plugins</a></li>
-      <li class="mobile-auth">
-        <ng-container *ngIf="auth.user$ | async; else loggedOutMobile">
-          <a routerLink="/account" (click)="closeMenu()">Minha conta</a>
-          <button (click)="auth.logout()">Sair</button>
-        </ng-container>
+      <div class="divider"></div>
 
-        <ng-template #loggedOutMobile>
-          <a class="login" routerLink="/login" (click)="closeMenu()">Entrar</a>
-          <a class="register" routerLink="/register" (click)="closeMenu()"
-            >Registrar</a
-          >
-        </ng-template>
-      </li>
-    </ul>
-  </nav>
+      <ng-container *ngIf="auth.user$ | async as user; else loggedOutMobile">
+        <div class="mobile-user-info">
+          <span>Olá, {{ user.email }}</span>
+        </div>
+        <a routerLink="/account" (click)="closeMenu()" class="mobile-link highlight">Minha Conta</a>
+        <button (click)="auth.logout(); closeMenu()" class="mobile-btn-logout">Sair da conta</button>
+      </ng-container>
+
+      <ng-template #loggedOutMobile>
+        <div class="mobile-auth-grid">
+          <a routerLink="/login" (click)="closeMenu()" class="btn-login-mobile">Entrar</a>
+          <a routerLink="/register" (click)="closeMenu()" class="btn-register-mobile">Criar conta</a>
+        </div>
+      </ng-template>
+    </nav>
+  </div>
 </header>

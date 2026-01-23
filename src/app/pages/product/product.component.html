@@ -1,31 +1,50 @@
 <section class="product-page">
-  <div class="product-container">
+  <div class="container">
     <div class="product-main">
-      <div class="product-image">
+      <div class="image-wrapper">
         <img [src]="product.image" alt="{{ product.name }}" />
       </div>
 
       <div class="product-info">
-        <h1>{{ product.name }}</h1>
+        <div class="header-group">
+          <span class="category-tag">Preset Pack</span>
+          <h1>{{ product.name }}</h1>
+        </div>
 
-        <p class="price">R$ {{ product.price }},00</p>
+        <div class="price-box">
+          <span class="currency">R$</span>
+          <span class="value">{{ product.price | number: "1.2-2" }}</span>
+        </div>
 
-        <p class="description">
-          {{ product.description }}
-        </p>
+        <div class="description">
+          <p>{{ product.description }}</p>
+        </div>
 
-        <button class="add-to-cart" (click)="addToCart()">
-          Adicionar ao carrinho
+        <button class="btn-add-cart" (click)="addToCart()">
+          <i class="fas fa-cart-plus"></i>
+          Adicionar ao Carrinho
         </button>
 
-        <p class="disclaimer">
-          Produto digital. Download liberado após a confirmação do pagamento.
-        </p>
+        <div class="features-list">
+          <div class="feature-item">
+            <i class="fas fa-bolt"></i>
+            <span>Download Imediato</span>
+          </div>
+          <div class="feature-item">
+            <i class="fas fa-lock"></i>
+            <span>Pagamento Seguro</span>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="related">
-      <h2>Produtos relacionados</h2>
+    <div class="section-divider"></div>
+
+    <div class="related-section">
+      <header class="section-header">
+        <h2>Você também pode gostar</h2>
+        <div class="underline"></div>
+      </header>
 
       <div class="related-grid">
         <app-product-card *ngFor="let item of relatedProducts" [product]="item">
